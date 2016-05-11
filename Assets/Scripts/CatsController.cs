@@ -5,6 +5,7 @@ using System.Linq;
 
 public class CatsController : MonoBehaviour {
 
+    public TextMesh statusText;
     public GameObject catStartTemplate;
     public Transform cameraTransform;
     public Vector3 defaultFinalPosition;
@@ -17,6 +18,7 @@ public class CatsController : MonoBehaviour {
 	void Start () {
         randomCreateCats();
         catCaptured = 0;
+        statusText.text = "Cat captured: 0/7";
 	}
 	
 	// Update is called once per frame
@@ -31,6 +33,8 @@ public class CatsController : MonoBehaviour {
             catCaptured++;
             if (catCaptured == 7) {
                 win();
+            } else {
+                statusText.text = "Cat captured: " + catCaptured + "/7";
             }
         }
     }
@@ -72,9 +76,10 @@ public class CatsController : MonoBehaviour {
             cat.runBack = true;
         }
         catCaptured = 0;
+        statusText.text = "Cat captured: 0/7";
     }
 
     void win() {
-        Debug.Log("Win");
+        statusText.text = "You Win!!!";
     }
 }
