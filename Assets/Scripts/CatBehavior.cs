@@ -43,7 +43,12 @@ public class CatBehavior : MonoBehaviour, ICardboardGazeResponder {
 
     void running() {
         if (finalPosition == transform.position) {
-            arrived = true;
+			arrived = true;
+
+			Vector3 originalAngle = transform.eulerAngles;
+			originalAngle.x = 0;
+			originalAngle.z = 0;
+			transform.eulerAngles = originalAngle;
             return;
         }
 
@@ -55,6 +60,11 @@ public class CatBehavior : MonoBehaviour, ICardboardGazeResponder {
     void goBackRunning() {
         if (initPosition == transform.position) {
             runBack = false;
+
+			Vector3 originalAngle = transform.eulerAngles;
+			originalAngle.x = 0;
+			originalAngle.z = 0;
+			transform.eulerAngles = originalAngle;
             return;
         }
 
@@ -63,10 +73,12 @@ public class CatBehavior : MonoBehaviour, ICardboardGazeResponder {
         transform.position = Vector3.MoveTowards(transform.position, initPosition, runSpeed * Time.deltaTime);
     }
 
-    public void OnGazeEnter() {
+	public void OnGazeEnter() {
+		animator.SetBool ("Jump", true);
     }
 
-    public void OnGazeExit() {
+	public void OnGazeExit() {
+		animator.SetBool ("Jump", false);
     }
 
     public void OnGazeTrigger() {
